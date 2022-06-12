@@ -1,4 +1,4 @@
-import { Category, CategoryId } from '@nera/category'
+import { Category } from '@nera/category'
 
 export interface Product {
   id?: string

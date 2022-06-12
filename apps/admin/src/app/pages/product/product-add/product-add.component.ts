@@ -115,7 +115,6 @@ export class ProductAddComponent implements OnInit {
     console.log({ fv: this.form.value.image })
 
     const formValues = this.form.controls
-    // const product = this.form.value
     const formData = new FormData()
 
     Object.keys(formValues).map((key) => formData.append(key, formValues[key].value))
