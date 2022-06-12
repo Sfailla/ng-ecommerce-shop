@@ -1,0 +1,43 @@
+// custom grid override for category list section
+.custom-grid {
+  @include flex(flex-start, center);
+  flex-wrap: wrap;
+}
+
+// custom table implementation for category list section
+.table {
+  border: 1px solid #dee2e6;
+  &-header {
+    width: 100%;
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    padding: 0 1rem;
+  }
+
+  &-row {
+    width: 100%;
+    height: auto;
+    min-height: 3.55rem;
+    @include flex(flex-start, center);
+  }
+
+  &-content-row {
+    @extend .table-row;
+    padding: 0 1rem;
+    &:not(:last-child) {
+      border-bottom: 1px solid #dee2e6;
+    }
+  }
+
+  &-action-column {
+    @include flex(flex-start);
+  }
+}
+
+.category {
+  &-color-box {
+    display: block;
+    width: 10rem;
+    height: 2rem;
+  }
+}

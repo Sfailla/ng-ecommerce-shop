@@ -1,0 +1,75 @@
+<p-toast></p-toast>
+<div class="product page-container page-wrapper">
+  <p-card [header]="title" [subheader]="subtitle">
+    <div class="grid">
+      <div class="col-12">
+        <p-toolbar>
+          <div class="p-toolbar-group-left">
+            <p-button routerLink="/products/add" label="Create" icon="pi pi-plus"></p-button>
+          </div>
+        </p-toolbar>
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="grid">
+      <div class="col-12">
+        <div class="table">
+          <div class="table-header">
+            <div class="table-row custom-grid">
+              <div class="col custom-grid">
+                <div class="table-column col bold">Name</div>
+                <div class="table-column col bold ml-3">Image</div>
+                <div class="table-column col bold">Price</div>
+                <div class="table-column col bold">Stock</div>
+                <div class="table-column col bold">Category</div>
+                <div class="table-column col bold">Created at</div>
+              </div>
+              <div class="col-fixed" style="width: 100px">
+                <div class="table-column bold">Action</div>
+              </div>
+            </div>
+          </div>
+          <div class="table-content">
+            <div class="table-content-row custom-grid" *ngFor="let product of products">
+              <div class="col custom-grid">
+                <div class="table-column col">{{ product.name }}</div>
+                <div class="table-column col ml-3">
+                  <ng-template [ngIf]="product.image" [ngIfElse]="elseBlock">
+                    <img class="product-img-preview" [src]="product.image" alt="product-image" />
+                  </ng-template>
+                  <ng-template #elseBlock>
+                    <span>N/A</span>
+                  </ng-template>
+                </div>
+                <div class="table-column col">{{ product.price }}</div>
+                <div class="table-column col">{{ product.countInStock }}</div>
+                <div class="table-column col">{{ product.category.name }}</div>
+                <div class="table-column col">{{ product.createdAt | date: 'short' }}</div>
+              </div>
+              <div class="col-fixed" style="width: 100px; height: auto; padding: 0; margin: 0">
+                <div class="table-column col-3 table-action-column">
+                  <p-button
+                    (onClick)="deleteProduct(product.id)"
+                    styleClass="p-button-error mr-2"
+                    icon="pi pi-trash"
+                  ></p-button>
+                  <p-button
+                    (onClick)="navigateToEditPage(product.id)"
+                    styleClass="p-button-error"
+                    icon="pi pi-pencil"
+                  ></p-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </p-card>
+</div>
+
+<p-confirmDialog
+  [style]="{ width: '50vw', marginLeft: '17.5rem' }"
+  [baseZIndex]="10000"
+  rejectButtonStyleClass="p-button-text"
+></p-confirmDialog>

@@ -1,0 +1,59 @@
+<p-toast></p-toast>
+<div class="category page-container page-wrapper">
+  <p-card [header]="title" [subheader]="subtitle">
+    <div class="grid">
+      <div class="col-12">
+        <p-toolbar>
+          <div class="p-toolbar-group-left">
+            <p-button
+              class="mr-2"
+              label="Update"
+              icon="pi pi-pencil"
+              (onClick)="onSubmit($event)"
+            ></p-button>
+            <back-button
+              styleClass="p-button-secondary"
+              label="Cancel"
+              icon="pi pi-times"
+            ></back-button>
+          </div>
+        </p-toolbar>
+      </div>
+    </div>
+    <div class="grid mt-3">
+      <div class="col-12">
+        <form [formGroup]="form">
+          <div class="formgrid grid">
+            <div class="field col">
+              <label for="name">Name</label>
+              <input
+                id="name"
+                type="text"
+                formControlName="name"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              />
+              <small *ngIf="form.controls['name'].invalid && isSubmitted" class="p-error"
+                >name is required</small
+              >
+            </div>
+            <div class="field col">
+              <label for="icon">Icon</label>
+              <input
+                id="icon"
+                type="text"
+                formControlName="icon"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              />
+            </div>
+            <div class="field col-fixed" style="width: 100px">
+              <label for="color">Color</label>
+              <div class="wrapper">
+                <p-colorPicker formControlName="color"></p-colorPicker>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </p-card>
+</div>
