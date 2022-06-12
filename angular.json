@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "projects": {
+    "admin": "apps/admin",
+    "category": "libs/category",
+    "core": "libs/core",
+    "ng-shop": "apps/ng-shop",
+    "ng-shop-e2e": "apps/ng-shop-e2e",
+    "orders": "libs/orders",
+    "products": "libs/products",
+    "ui": "libs/ui",
+    "users": "libs/users"
+  }
+}
