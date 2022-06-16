@@ -22,8 +22,6 @@ export class CategoryEditComponent implements OnInit {
       icon: ['', Validators.required],
       color: ['', Validators.required]
     })
-    this.categoryService = categoryService
-    this.router = router
   }
 
   categoryId: CategoryId = ''
@@ -36,19 +34,13 @@ export class CategoryEditComponent implements OnInit {
   ngOnInit(): void {
     this.categoryId = this.router.snapshot.paramMap.get('id') as CategoryId
 
-    this.categoryService.getCategoryById(this.categoryId).subscribe({
-      next: ({ category }: { category: Category }) => {
-        this.category = category
-        this.form.controls['name'].setValue(category.name)
-        this.form.controls['icon'].setValue(category.icon)
-        this.form.controls['color'].setValue(category.color)
-      },
-      error: ({ error }: { error: ApiError }) => {
-        this.messageService.handleToastMessage(
-          ToastMessageSeverity.Error,
-          ToastMessageSummary.Error,
-          error.message
-        )
+    this.categoryService.getCategoryById(this.categoryId).subscribe(response => {
+      this.category = response.category
+
+      for (const key in this.form.controls) {
+        if (this.form.controls[key]) {
+          this.form.controls[key].setValue(this.category[key])
+        }
       }
     })
   }
