@@ -112,7 +112,6 @@ export class ProductAddComponent implements OnInit {
     this.isSubmitted = true
 
     if (this.form.invalid) return
-    console.log({ fv: this.form.value.image })
 
     const formValues = this.form.controls
     const formData = new FormData()

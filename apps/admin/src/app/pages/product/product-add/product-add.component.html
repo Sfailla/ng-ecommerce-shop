@@ -101,12 +101,6 @@
                     chooseLabel="Upload Image"
                     (onSelect)="onFileChange($event)"
                   ></p-fileUpload>
-                  <!-- <input
-                    type="file"
-                    accept="image/*"
-                    formControlName="image"
-                    (change)="onFileChange($event)"
-                  /> -->
                   <span class="product-img-preview" *ngIf="imageDisplay">
                     <img [src]="imageDisplay" alt="image-display" />
                   </span>
