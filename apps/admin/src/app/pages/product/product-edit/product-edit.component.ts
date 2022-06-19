@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute } from '@angular/router'
 import { Category, CategoryService } from '@nera/category'
-import { ApiResponse, ApiError } from '@nera/core'
+import { HelperFns } from '@nera/core'
 import { ProductService, Product, ProductId } from '@nera/products'
-import { ToastMessageService, ToastMessageSeverity, ToastMessageSummary } from '@nera/ui'
 
 @Component({
   selector: 'admin-product-edit',
@@ -26,9 +25,8 @@ export class ProductEditComponent implements OnInit {
     private formBuilder: FormBuilder,
     private productService: ProductService,
     private categoryService: CategoryService,
-    private messageService: ToastMessageService,
-    private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private utils: HelperFns
   ) {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
@@ -96,31 +94,10 @@ export class ProductEditComponent implements OnInit {
     fileReader.readAsDataURL(file as unknown as Blob)
   }
 
-  handleSuccess<T>(response: ApiResponse<T>) {
-    response.message &&
-      this.messageService.handleToastMessage(
-        ToastMessageSeverity.Success,
-        ToastMessageSummary.Success,
-        response.message
-      )
-
-    setTimeout(() => this.router.navigateByUrl('/products'), 1500)
-  }
-
   updateProduct(product: Product): void {
     this.productService.updateProduct(this.productId, product).subscribe({
-      next: response => this.handleSuccess<Product>(response),
-      error: (error: ApiError) => {
-        if (error) {
-          console.log('error block hit')
-
-          this.messageService.handleToastMessage(
-            ToastMessageSeverity.Error,
-            ToastMessageSummary.Error,
-            error.message
-          )
-        }
-      }
+      next: this.utils.handleSuccess(),
+      error: this.utils.handleError()
     })
   }
 
@@ -132,9 +109,10 @@ export class ProductEditComponent implements OnInit {
 
     const formValues = this.form.controls
     const formData = new FormData()
+    const updatedProduct = formData as unknown as Product
 
     Object.keys(formValues).map(key => formData.append(key, formValues[key].value))
 
-    this.updateProduct(formData as unknown as Product)
+    this.updateProduct(updatedProduct)
   }
 }

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { ApiError, ApiResponse } from '@nera/core'
+import { HelperFns } from '@nera/core'
 import { Category, CategoryId, CategoryService } from '@nera/category'
-import { ToastMessageService, ToastMessageSeverity, ToastMessageSummary } from '@nera/ui'
 
 @Component({
   selector: 'admin-category-edit',
@@ -14,8 +13,8 @@ export class CategoryEditComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private categoryService: CategoryService,
-    private messageService: ToastMessageService,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    private utils: HelperFns
   ) {
     this.form = formBuilder.group({
       name: ['', Validators.required],
@@ -47,22 +46,8 @@ export class CategoryEditComponent implements OnInit {
 
   updateCategory(id: CategoryId, updates: Category) {
     this.categoryService.updateCategory(id, updates).subscribe({
-      next: ({ message }: ApiResponse<Category>) => {
-        if (message) {
-          this.messageService.handleToastMessage(
-            ToastMessageSeverity.Success,
-            ToastMessageSummary.Success,
-            message
-          )
-        }
-      },
-      error: ({ error }: { error: ApiError }) => {
-        this.messageService.handleToastMessage(
-          ToastMessageSeverity.Error,
-          ToastMessageSummary.Error,
-          error.message
-        )
-      }
+      next: this.utils.handleSuccess(),
+      error: this.utils.handleError()
     })
   }
 

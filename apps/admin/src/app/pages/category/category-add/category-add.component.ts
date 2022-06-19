@@ -1,9 +1,7 @@
 import { Component } from '@angular/core'
-import { Router } from '@angular/router'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Category, CategoryService } from '@nera/category'
-import { ApiError, ApiResponse } from '@nera/core'
-import { ToastMessageService, ToastMessageSeverity, ToastMessageSummary } from '@nera/ui'
+import { HelperFns } from '@nera/core'
 
 @Component({
   selector: 'admin-category-add',
@@ -14,17 +12,13 @@ export class CategoryAddComponent {
   constructor(
     private formBuilder: FormBuilder,
     private categoryService: CategoryService,
-    private messageService: ToastMessageService,
-    private router: Router
+    private utils: HelperFns
   ) {
     this.form = formBuilder.group({
       name: ['', Validators.required],
       icon: ['', Validators.required],
       color: ['', Validators.required]
     })
-
-    this.categoryService = categoryService
-    this.messageService = messageService
   }
 
   // COMPONENT STATE
@@ -35,23 +29,8 @@ export class CategoryAddComponent {
 
   createCategory(category: Category): void {
     this.categoryService.createCategory(category).subscribe({
-      next: ({ message }: ApiResponse<Category>): void => {
-        if (message) {
-          this.messageService.handleToastMessage(
-            ToastMessageSeverity.Success,
-            ToastMessageSummary.Success,
-            message
-          )
-          setTimeout(() => this.router.navigateByUrl('/categories'), 1500)
-        }
-      },
-      error: ({ error }: { error: ApiError }): void => {
-        this.messageService.handleToastMessage(
-          ToastMessageSeverity.Error,
-          ToastMessageSummary.Error,
-          error.message
-        )
-      }
+      next: this.utils.handleSuccess({ redirectTo: '/categories' }),
+      error: this.utils.handleError()
     })
   }
 

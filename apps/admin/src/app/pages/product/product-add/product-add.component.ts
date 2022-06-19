@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
-import { Router } from '@angular/router'
 import { Category, CategoryService } from '@nera/category'
-import { ApiError, ApiResponse } from '@nera/core'
+import { HelperFns } from '@nera/core'
 import { Product, ProductService } from '@nera/products'
-import { ToastMessageService, ToastMessageSeverity, ToastMessageSummary } from '@nera/ui'
 
 @Component({
   selector: 'admin-product-add',
@@ -25,8 +23,7 @@ export class ProductAddComponent implements OnInit {
     private formBuilder: FormBuilder,
     private productService: ProductService,
     private categoryService: CategoryService,
-    private messageService: ToastMessageService,
-    private router: Router
+    private utils: HelperFns
   ) {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
@@ -79,37 +76,10 @@ export class ProductAddComponent implements OnInit {
     fileReader.readAsDataURL(file as unknown as Blob)
   }
 
-  handleSuccess<T>({
-    redirectTo = null
-  }: {
-    redirectTo: string | null
-  }): (response: ApiResponse<T>) => void {
-    return (response: ApiResponse<T>) => {
-      if (response.message) {
-        this.messageService.handleToastMessage(
-          ToastMessageSeverity.Success,
-          ToastMessageSummary.Success,
-          response.message
-        )
-      } else if (redirectTo) {
-        setTimeout(() => this.router.navigateByUrl(redirectTo), 1500)
-      }
-    }
-  }
-
-  handleError() {
-    return (error: ApiError) =>
-      this.messageService.handleToastMessage(
-        ToastMessageSeverity.Error,
-        ToastMessageSummary.Error,
-        error.message
-      )
-  }
-
   createProduct(product: Product): void {
     this.productService.createProduct(product).subscribe({
-      next: this.handleSuccess<Product>({ redirectTo: '/products' }),
-      error: this.handleError()
+      next: this.utils.handleSuccess({ redirectTo: '/products' }),
+      error: this.utils.handleError()
     })
   }
 
