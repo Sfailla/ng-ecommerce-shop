@@ -11,6 +11,13 @@ import { MainContentComponent } from './shared/main-content/main-content.compone
 import { SidebarComponent } from './shared/sidebar/sidebar.component'
 import { DashboardComponent } from './pages/dashboard/dashboard.component'
 import { CategoryListComponent } from './pages/category/category-list/category-list.component'
+import { BackButtonComponent } from '@nera/ui'
+import { CategoryAddComponent } from './pages/category/category-add/category-add.component'
+import { CategoryEditComponent } from './pages/category/category-edit/category-edit.component'
+import { ProductListComponent } from './pages/product/product-list/product-list.component'
+import { ProductAddComponent } from './pages/product/product-add/product-add.component'
+import { ProductEditComponent } from './pages/product/product-edit/product-edit.component'
+import { HelperFns } from '@nera/core'
 
 import { CardModule } from 'primeng/card'
 import { ToolbarModule } from 'primeng/toolbar'
@@ -27,14 +34,6 @@ import { DropdownModule } from 'primeng/dropdown'
 import { EditorModule } from 'primeng/editor'
 import { FileUploadModule } from 'primeng/fileupload'
 import { RatingModule } from 'primeng/rating'
-
-import { CategoryService } from '@nera/category'
-import { BackButtonComponent } from '@nera/ui'
-import { CategoryAddComponent } from './pages/category/category-add/category-add.component'
-import { CategoryEditComponent } from './pages/category/category-edit/category-edit.component'
-import { ProductListComponent } from './pages/product/product-list/product-list.component'
-import { ProductAddComponent } from './pages/product/product-add/product-add.component'
-import { ProductEditComponent } from './pages/product/product-edit/product-edit.component'
 
 const routes: Route[] = [
   {
@@ -93,7 +92,7 @@ const UxModules = [
     HttpClientModule,
     RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' })
   ],
-  providers: [CategoryService, MessageService, ConfirmationService],
+  providers: [MessageService, ConfirmationService, HelperFns],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
