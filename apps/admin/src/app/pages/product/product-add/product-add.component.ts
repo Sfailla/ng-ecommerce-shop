@@ -51,7 +51,7 @@ export class ProductAddComponent implements OnInit {
   }
 
   getCategories(): void {
-    this.categoryService.getCategories().subscribe((response) => {
+    this.categoryService.getCategories().subscribe(response => {
       const categories = response.categories
       this.categories = categories
     })
@@ -79,31 +79,37 @@ export class ProductAddComponent implements OnInit {
     fileReader.readAsDataURL(file as unknown as Blob)
   }
 
-  handleSuccess<T>(response: ApiResponse<T>) {
-    response.message &&
-      this.messageService.handleToastMessage(
-        ToastMessageSeverity.Success,
-        ToastMessageSummary.Success,
-        response.message
-      )
+  handleSuccess<T>({
+    redirectTo = null
+  }: {
+    redirectTo: string | null
+  }): (response: ApiResponse<T>) => void {
+    return (response: ApiResponse<T>) => {
+      if (response.message) {
+        this.messageService.handleToastMessage(
+          ToastMessageSeverity.Success,
+          ToastMessageSummary.Success,
+          response.message
+        )
+      } else if (redirectTo) {
+        setTimeout(() => this.router.navigateByUrl(redirectTo), 1500)
+      }
+    }
+  }
 
-    setTimeout(() => this.router.navigateByUrl('/products'), 1500)
+  handleError() {
+    return (error: ApiError) =>
+      this.messageService.handleToastMessage(
+        ToastMessageSeverity.Error,
+        ToastMessageSummary.Error,
+        error.message
+      )
   }
 
   createProduct(product: Product): void {
     this.productService.createProduct(product).subscribe({
-      next: (response) => this.handleSuccess<Product>(response),
-      error: (error: ApiError) => {
-        if (error) {
-          console.log('error block hit')
-
-          this.messageService.handleToastMessage(
-            ToastMessageSeverity.Error,
-            ToastMessageSummary.Error,
-            error.message
-          )
-        }
-      }
+      next: this.handleSuccess<Product>({ redirectTo: '/products' }),
+      error: this.handleError()
     })
   }
 
@@ -116,7 +122,7 @@ export class ProductAddComponent implements OnInit {
     const formValues = this.form.controls
     const formData = new FormData()
 
-    Object.keys(formValues).map((key) => formData.append(key, formValues[key].value))
+    Object.keys(formValues).map(key => formData.append(key, formValues[key].value))
 
     this.createProduct(formData as unknown as Product)
   }

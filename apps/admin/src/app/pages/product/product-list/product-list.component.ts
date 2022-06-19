@@ -35,16 +35,17 @@ export class ProductListComponent implements OnInit {
   }
 
   getProducts(): void {
-    this.productService.getProducts().subscribe((response: ApiResponse<Product[]>) => {
+    this.productService.getProducts().subscribe(response => {
       this.products = response.products
     })
   }
 
-  deleteProduct(id: ProductId): void {
-    this.confirmationService.handleConfirm(() =>
+  confirmation(id: ProductId): () => void {
+    return () => {
       this.productService.deleteProduct(id).subscribe({
         next: ({ message }: ApiResponse<Product>) => {
-          this.getProducts()
+          this.products = this.products.filter(product => product.id !== id)
+
           message &&
             this.messageService.handleToastMessage(
               ToastMessageSeverity.Success,
@@ -61,6 +62,10 @@ export class ProductListComponent implements OnInit {
             )
         }
       })
-    )
+    }
+  }
+
+  deleteProduct(id: ProductId): void {
+    this.confirmationService.handleConfirm(this.confirmation(id))
   }
 }
