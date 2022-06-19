@@ -45,22 +45,25 @@ export class ProductEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.setInitialFormValues()
+    this.getCategories()
+  }
+
+  setInitialFormValues() {
     this.productId = this.route.snapshot.paramMap.get('id') as ProductId
 
     this.productService.getProductById(this.productId).subscribe(response => {
       const product = response.product
 
       for (const key in this.form.controls) {
-        if (this.form.controls[key]) {
-          this.form.controls[key].setValue(product[key])
-        }
+        const productValue = key === 'category' ? product.category.id : product[key]
+        this.setFormValue(key, productValue)
       }
+      this.imageDisplay = product.image
     })
-
-    this.getCategories()
   }
 
-  setFormValue(formValue: keyof Product, value: unknown) {
+  setFormValue(formValue: string, value: unknown) {
     this.form.controls[formValue].setValue(value)
   }
 

@@ -39,9 +39,9 @@
                 formControlName="name"
                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
               />
-              <small *ngIf="form.controls['name'].invalid && isSubmitted" class="p-error"
-                >name is required</small
-              >
+              <small *ngIf="form.controls['name'].invalid && isSubmitted" class="p-error">
+                name is required
+              </small>
             </div>
             <div class="field col-12 md:col-3 sm:col-6">
               <label for="brand">Brand</label>
@@ -69,9 +69,9 @@
                 formControlName="category"
                 placeholder="Select a Category"
               ></p-dropdown>
-              <small *ngIf="form.controls['category'].invalid && isSubmitted" class="p-error"
-                >name is required</small
-              >
+              <small *ngIf="form.controls['category'].invalid && isSubmitted" class="p-error">
+                name is required
+              </small>
             </div>
             <div class="field col-12 md:col-1 sm:col-3">
               <label for="price" style="display: block">Price</label>
