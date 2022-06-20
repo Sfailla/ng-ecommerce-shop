@@ -13,7 +13,7 @@ export class CategoryEditComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private categoryService: CategoryService,
-    private router: ActivatedRoute,
+    private route: ActivatedRoute,
     private utils: HelperFns
   ) {
     this.form = formBuilder.group({
@@ -23,22 +23,22 @@ export class CategoryEditComponent implements OnInit {
     })
   }
 
-  categoryId: CategoryId = ''
-  category = {} as Category
+  categoryId$!: CategoryId
+  category$!: Category
   form: FormGroup
   isSubmitted = false
   title = 'Edit Category'
   subtitle = 'You can edit a category here!'
 
   ngOnInit(): void {
-    this.categoryId = this.router.snapshot.paramMap.get('id') as CategoryId
+    this.categoryId$ = this.route.snapshot.paramMap.get('id')
 
-    this.categoryService.getCategoryById(this.categoryId).subscribe(response => {
-      this.category = response.category
+    this.categoryService.getCategoryById(this.categoryId$).subscribe(response => {
+      this.category$ = response.category
 
       for (const key in this.form.controls) {
         if (this.form.controls[key]) {
-          this.form.controls[key].setValue(this.category[key])
+          this.form.controls[key].setValue(this.category$[key])
         }
       }
     })
@@ -62,6 +62,6 @@ export class CategoryEditComponent implements OnInit {
       color: this.form.value.color
     }
 
-    this.updateCategory(this.categoryId, updatedCategory)
+    this.updateCategory(this.categoryId$, updatedCategory)
   }
 }

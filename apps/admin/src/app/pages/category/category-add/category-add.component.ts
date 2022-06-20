@@ -40,9 +40,9 @@ export class CategoryAddComponent {
     if (this.form.invalid) return
 
     const category = {
-      name: this.form.controls['name'].value,
-      icon: this.form.controls['icon'].value,
-      color: this.form.controls['color'].value
+      name: this.form.controls.name.value,
+      icon: this.form.controls.icon.value,
+      color: this.form.controls.color.value
     }
 
     this.createCategory(category)

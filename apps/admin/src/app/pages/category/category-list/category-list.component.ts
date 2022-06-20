@@ -17,7 +17,7 @@ export class CategoryListComponent implements OnInit {
     private utils: HelperFns
   ) {}
 
-  categories: Category[] = []
+  categories$: Category[] = []
 
   title = 'Categories'
   subtitle = 'List of all categories'
@@ -33,18 +33,18 @@ export class CategoryListComponent implements OnInit {
   getCategories(): void {
     this.categoryService.getCategories().subscribe(categorySubscription => {
       const categories = categorySubscription.categories
-      this.categories = categories
+      this.categories$ = categories
     })
   }
 
-  updateState(id: CategoryId) {
-    this.categories = this.categories.filter(category => category.id !== id)
+  updateCategoryState(id: CategoryId) {
+    this.categories$ = this.categories$.filter(category => category.id !== id)
   }
 
   confirmation(id: CategoryId): () => void {
     return () => {
       this.categoryService.deleteCategory(id).subscribe({
-        next: this.utils.handleSuccess({ setState: this.updateState(id) }),
+        next: this.utils.handleSuccess({ setState: this.updateCategoryState(id) }),
         error: this.utils.handleError()
       })
     }

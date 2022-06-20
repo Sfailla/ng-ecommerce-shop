@@ -11,7 +11,7 @@ import { Product, ProductService } from '@nera/products'
 })
 export class ProductAddComponent implements OnInit {
   // COMPONENT STATE
-  categories: Category[] = []
+  categories$: Category[] = []
   imageDisplay!: ArrayBuffer | string | null
   selectedFile!: File
   form: FormGroup
@@ -43,33 +43,26 @@ export class ProductAddComponent implements OnInit {
     this.getCategories()
   }
 
-  setFormValue(formValue: keyof Product, value: unknown) {
-    this.form.controls[formValue].setValue(value)
-  }
-
   getCategories(): void {
     this.categoryService.getCategories().subscribe(response => {
       const categories = response.categories
-      this.categories = categories
+      this.categories$ = categories
     })
   }
 
-  onToggleChange(event: HTMLInputElement) {
-    this.setFormValue('isFeatured', event.checked)
-  }
+  setFormValue = (formValue: string, value: unknown) => this.form.controls[formValue].setValue(value)
 
-  onRateChange(event: HTMLInputElement) {
-    console.log(event.value)
-    this.setFormValue('rating', event.value)
-  }
+  onToggleChange = (event: HTMLInputElement) => this.setFormValue('isFeatured', event.checked)
+
+  onRateChange = (event: HTMLInputElement) => this.setFormValue('rating', event.value)
 
   onFileChange(event: Event) {
     const file = (event as Event & { currentFiles: File }).currentFiles[0]
+    const fileReader = new FileReader()
 
     this.selectedFile = file
     this.setFormValue('image', file)
 
-    const fileReader = new FileReader()
     fileReader.onload = () => {
       this.imageDisplay = fileReader.result
     }

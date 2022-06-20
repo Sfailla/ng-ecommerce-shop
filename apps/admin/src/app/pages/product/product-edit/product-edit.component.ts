@@ -12,7 +12,7 @@ import { ProductService, Product, ProductId } from '@nera/products'
 })
 export class ProductEditComponent implements OnInit {
   // COMPONENT STATE
-  categories: Category[] = []
+  categories$: Category[] = []
   productId: ProductId
   imageDisplay!: ArrayBuffer | string | null
   selectedFile!: File
@@ -68,7 +68,7 @@ export class ProductEditComponent implements OnInit {
   getCategories(): void {
     this.categoryService.getCategories().subscribe(response => {
       const categories = response.categories
-      this.categories = categories
+      this.categories$ = categories
     })
   }
 

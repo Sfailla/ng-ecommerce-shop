@@ -1,13 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
-import { ApiResponse } from '@nera/core'
+import { HelperFns } from '@nera/core'
 import { Product, ProductId, ProductService } from '@nera/products'
-import {
-  ConfirmationDialogueService,
-  ToastMessageService,
-  ToastMessageSeverity,
-  ToastMessageSummary
-} from '@nera/ui'
+import { ConfirmationDialogueService } from '@nera/ui'
 
 @Component({
   selector: 'admin-product-list',
@@ -17,14 +12,14 @@ import {
 export class ProductListComponent implements OnInit {
   constructor(
     private productService: ProductService,
-    private messageService: ToastMessageService,
     private confirmationService: ConfirmationDialogueService,
-    private router: Router
+    private router: Router,
+    private utils: HelperFns
   ) {}
 
+  products$: Product[] = []
   title = 'Products'
   subtitle = 'List of all products'
-  products: Product[] = []
 
   navigateToEditPage(id: ProductId) {
     this.router.navigate(['products/edit/', id])
@@ -36,31 +31,19 @@ export class ProductListComponent implements OnInit {
 
   getProducts(): void {
     this.productService.getProducts().subscribe(response => {
-      this.products = response.products
+      this.products$ = response.products
     })
+  }
+
+  updateProductState(id: ProductId) {
+    this.products$ = this.products$.filter(product => product.id !== id)
   }
 
   confirmation(id: ProductId): () => void {
     return () => {
       this.productService.deleteProduct(id).subscribe({
-        next: ({ message }: ApiResponse<Product>) => {
-          this.products = this.products.filter(product => product.id !== id)
-
-          message &&
-            this.messageService.handleToastMessage(
-              ToastMessageSeverity.Success,
-              ToastMessageSummary.Success,
-              message
-            )
-        },
-        error: ({ error }: { error: ApiResponse<Product> }) => {
-          error?.message &&
-            this.messageService.handleToastMessage(
-              ToastMessageSeverity.Error,
-              ToastMessageSummary.Error,
-              error.message
-            )
-        }
+        next: this.utils.handleSuccess({ setState: this.updateProductState(id) }),
+        error: this.utils.handleError()
       })
     }
   }
