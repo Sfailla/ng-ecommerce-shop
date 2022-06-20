@@ -5,4 +5,4 @@ export interface Category {
   color: string
 }
 
-export type CategoryId = Pick<Category, 'id'> | string | undefined
+export type CategoryId = Pick<Category, 'id'> | string | null | undefined
