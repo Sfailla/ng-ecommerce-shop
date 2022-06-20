@@ -11,7 +11,7 @@ interface SuccessConfig {
 
 type SuccessResponse<T> = (response: ApiResponse<T>) => void
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class HelperFns {
   constructor(private messageService: ToastMessageService, private router: Router) {}
 
@@ -25,15 +25,18 @@ export class HelperFns {
 
   private buildResponse({ message, setState, redirectTo }: SuccessConfig): void {
     if (message) this.toastMessage(message)
-    else if (setState) setState()
-    else if (redirectTo) setTimeout(() => this.router.navigateByUrl(redirectTo), 1500)
+    if (setState) setState()
+    if (redirectTo) setTimeout(() => this.router.navigateByUrl(redirectTo), 1500)
   }
 
-  public handleSuccess =
-    <T>({ redirectTo = null, setState }: SuccessConfig = {}): SuccessResponse<T> =>
-    ({ message }: ApiResponse<T>) => {
+  public handleSuccess = <T>({
+    redirectTo = null,
+    setState = null
+  }: SuccessConfig = {}): SuccessResponse<T> => {
+    return ({ message }: ApiResponse<T>) => {
       this.buildResponse({ message, setState, redirectTo })
     }
+  }
 
   public handleError = () => (error: ApiError) => {
     this.messageService.handleToastMessage(
