@@ -46,7 +46,7 @@ export class CategoryEditComponent implements OnInit {
 
   updateCategory(id: CategoryId, updates: Category) {
     this.categoryService.updateCategory(id, updates).subscribe({
-      next: this.utils.handleSuccess(),
+      next: this.utils.handleSuccess({ redirectTo: '/categories' }),
       error: this.utils.handleError()
     })
   }

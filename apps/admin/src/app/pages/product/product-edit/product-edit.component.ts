@@ -34,10 +34,10 @@ export class ProductEditComponent implements OnInit {
       brand: ['', Validators.required],
       price: ['', Validators.required],
       category: ['', Validators.required],
-      countInStock: ['', Validators.required],
+      countInStock: [''],
       rating: [''],
       richDescription: [''],
-      image: [''],
+      image: ['', Validators.required],
       isFeatured: ['']
     })
   }
@@ -77,7 +77,6 @@ export class ProductEditComponent implements OnInit {
   }
 
   onRateChange(event: HTMLInputElement) {
-    console.log(event.value)
     this.setFormValue('rating', event.value)
   }
 
@@ -96,7 +95,7 @@ export class ProductEditComponent implements OnInit {
 
   updateProduct(product: Product): void {
     this.productService.updateProduct(this.productId, product).subscribe({
-      next: this.utils.handleSuccess(),
+      next: this.utils.handleSuccess({ redirectTo: '/products' }),
       error: this.utils.handleError()
     })
   }
@@ -109,10 +108,8 @@ export class ProductEditComponent implements OnInit {
 
     const formValues = this.form.controls
     const formData = new FormData()
-    const updatedProduct = formData as unknown as Product
-
     Object.keys(formValues).map(key => formData.append(key, formValues[key].value))
-
+    const updatedProduct = formData as unknown as Product
     this.updateProduct(updatedProduct)
   }
 }

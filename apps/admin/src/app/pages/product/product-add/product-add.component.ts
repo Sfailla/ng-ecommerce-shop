@@ -31,10 +31,10 @@ export class ProductAddComponent implements OnInit {
       brand: ['', Validators.required],
       price: ['', Validators.required],
       category: ['', Validators.required],
-      countInStock: ['', Validators.required],
+      countInStock: [''],
       rating: [''],
       richDescription: [''],
-      image: [''],
+      image: ['', Validators.required],
       isFeatured: ['']
     })
   }

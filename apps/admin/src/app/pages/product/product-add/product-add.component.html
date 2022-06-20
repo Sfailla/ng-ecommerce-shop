@@ -39,7 +39,7 @@
                 formControlName="name"
                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
               />
-              <small *ngIf="form.controls['name'].invalid && isSubmitted" class="p-error">
+              <small *ngIf="form.controls.name.invalid && isSubmitted" class="p-error">
                 name is required
               </small>
             </div>
@@ -51,7 +51,7 @@
                 formControlName="brand"
                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
               />
-              <small *ngIf="form.controls['brand'].invalid && isSubmitted" class="p-error">
+              <small *ngIf="form.controls.brand.invalid && isSubmitted" class="p-error">
                 brand is required
               </small>
             </div>
@@ -69,8 +69,8 @@
                 formControlName="category"
                 placeholder="Select a Category"
               ></p-dropdown>
-              <small *ngIf="form.controls['category'].invalid && isSubmitted" class="p-error">
-                name is required
+              <small *ngIf="form.controls.category.invalid && isSubmitted" class="p-error">
+                category is required
               </small>
             </div>
             <div class="field col-12 md:col-1 sm:col-3">
@@ -82,6 +82,9 @@
                 currency="USD"
                 formControlName="price"
               ></p-inputNumber>
+              <small *ngIf="form.controls.price.invalid && isSubmitted" class="p-error">
+                price is required
+              </small>
             </div>
             <div class="field col-12 md:col-1 sm:col-3">
               <label for="countInStock" style="display: block">Count</label>
@@ -94,13 +97,18 @@
             <div class="col-12">
               <p-toolbar>
                 <div class="product-upload-img-container col-12 md:col-6 sm:col-6">
-                  <p-fileUpload
-                    mode="basic"
-                    name="image"
-                    accept="image/*"
-                    chooseLabel="Upload Image"
-                    (onSelect)="onFileChange($event)"
-                  ></p-fileUpload>
+                  <div class="flex-wrapper">
+                    <p-fileUpload
+                      mode="basic"
+                      name="image"
+                      accept="image/*"
+                      chooseLabel="Upload Image"
+                      (onSelect)="onFileChange($event)"
+                    ></p-fileUpload>
+                    <small *ngIf="form.controls.image.invalid && isSubmitted" class="p-error">
+                      image is required
+                    </small>
+                  </div>
                   <span class="product-img-preview" *ngIf="imageDisplay">
                     <img [src]="imageDisplay" alt="image-display" />
                   </span>
@@ -125,6 +133,9 @@
                 cols="auto"
                 pInputTextarea
               ></textarea>
+              <small *ngIf="form.controls.description.invalid && isSubmitted" class="p-error">
+                description is required
+              </small>
             </div>
             <div class="field col-12">
               <label for="rich-description">Formatted Description</label>
