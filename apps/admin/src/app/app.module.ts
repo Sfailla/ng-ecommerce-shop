@@ -34,6 +34,7 @@ import { DropdownModule } from 'primeng/dropdown'
 import { EditorModule } from 'primeng/editor'
 import { FileUploadModule } from 'primeng/fileupload'
 import { RatingModule } from 'primeng/rating'
+import { PaginatorModule } from 'primeng/paginator'
 
 const routes: Route[] = [
   {
@@ -65,7 +66,8 @@ const UxModules = [
   DropdownModule,
   EditorModule,
   FileUploadModule,
-  RatingModule
+  RatingModule,
+  PaginatorModule
 ]
 
 @NgModule({
