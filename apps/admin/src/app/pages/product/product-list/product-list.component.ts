@@ -10,16 +10,21 @@ import { ConfirmationDialogueService } from '@nera/ui'
   styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit {
+  // COMPONENT STATE
+  products$: Product[] = []
+  paginatedProducts: Product[] = []
+  title = 'Products'
+  subtitle = 'List of all products'
+  totalRecords = 0
+
   constructor(
     private productService: ProductService,
     private confirmationService: ConfirmationDialogueService,
     private router: Router,
     private utils: HelperFns
-  ) {}
-
-  products$: Product[] = []
-  title = 'Products'
-  subtitle = 'List of all products'
+  ) {
+    this.totalRecords = this.products$.length
+  }
 
   navigateToEditPage(id: ProductId) {
     this.router.navigate(['products/edit/', id])
@@ -29,10 +34,22 @@ export class ProductListComponent implements OnInit {
     this.getProducts()
   }
 
+  paginate(event: { pageIndex: number; pageSize: number }) {
+    console.log(event)
+
+    this.paginatedProducts = this.products$.slice(
+      event.pageIndex * event.pageSize,
+      (event.pageIndex + 1) * event.pageSize
+    )
+
+    // this.paginatedProducts = this.products$.slice(
+    //   event.pageIndex * event.pageSize,
+    //   event.pageIndex * event.pageSize + event.pageSize
+    // )
+  }
+
   getProducts(): void {
     this.productService.getProducts().subscribe(response => {
-      console.log({ response })
-
       this.products$ = response.products
     })
   }
