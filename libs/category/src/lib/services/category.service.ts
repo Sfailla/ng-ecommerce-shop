@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { Category, CategoryId } from '../types'
-import { ApiResponse, baseUrl } from '@nera/core'
+import { Category, CategoryId, ApiResponse } from '@nera/types'
+import { baseUrl } from '@nera/core'
 import { Observable } from 'rxjs'
 
 @Injectable({

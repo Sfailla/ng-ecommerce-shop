@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs'
-import { Product, ProductId } from '../types/product'
-import { Routes, baseUrl, ApiResponse } from '@nera/core'
+import { Product, ProductId, Routes, ApiResponse } from '@nera/types'
+import { baseUrl } from '@nera/core'
 
 @Injectable({
   providedIn: 'root'

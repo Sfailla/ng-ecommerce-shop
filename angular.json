@@ -6,9 +6,9 @@
     "core": "libs/core",
     "ng-shop": "apps/ng-shop",
     "ng-shop-e2e": "apps/ng-shop-e2e",
-    "orders": "libs/orders",
-    "products": "libs/products",
+    "orders": "libs/order",
+    "products": "libs/product",
     "ui": "libs/ui",
-    "users": "libs/users"
+    "users": "libs/user"
   }
 }
