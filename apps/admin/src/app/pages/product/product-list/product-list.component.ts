@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { HelperFns } from '@nera/core'
-import { Product, ProductId, ProductService } from '@nera/products'
+import { Product, ProductId, ProductService } from 'libs/product/src'
 import { ConfirmationDialogueService } from '@nera/ui'
 
 @Component({

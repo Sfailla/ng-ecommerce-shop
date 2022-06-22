@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { Category, CategoryService } from '@nera/category'
 import { HelperFns } from '@nera/core'
-import { ProductService, Product, ProductId } from '@nera/products'
+import { ProductService, Product, ProductId } from 'libs/product/src'
 
 @Component({
   selector: 'admin-product-edit',

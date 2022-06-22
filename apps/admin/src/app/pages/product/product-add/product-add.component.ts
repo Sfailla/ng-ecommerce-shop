@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Category, CategoryService } from '@nera/category'
 import { HelperFns } from '@nera/core'
-import { Product, ProductService } from '@nera/products'
+import { Product, ProductService } from 'libs/product/src'
 
 @Component({
   selector: 'admin-product-add',
@@ -50,7 +50,8 @@ export class ProductAddComponent implements OnInit {
     })
   }
 
-  setFormValue = (formValue: string, value: unknown) => this.form.controls[formValue].setValue(value)
+  setFormValue = (formValue: string, value: unknown) =>
+    this.form.controls[formValue].setValue(value)
 
   onToggleChange = (event: HTMLInputElement) => this.setFormValue('isFeatured', event.checked)
 

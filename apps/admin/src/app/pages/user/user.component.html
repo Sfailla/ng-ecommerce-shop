@@ -1,1 +1,74 @@
-<p>user works!</p>
+<p-toast></p-toast>
+<div class="category page-container page-wrapper">
+  <p-card [header]="title" [subheader]="subtitle">
+    <div class="grid">
+      <div class="col-12">
+        <p-toolbar>
+          <div class="p-toolbar-group-left">
+            <p-button routerLink="/categories/add" label="Create" icon="pi pi-plus"></p-button>
+          </div>
+        </p-toolbar>
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="grid">
+      <div class="col-12">
+        <div class="table">
+          <div class="table-header">
+            <div class="table-row custom-grid">
+              <div class="col custom-grid">
+                <div class="table-column col-4 bold">Name</div>
+                <div class="table-column col-4 bold">Icon</div>
+                <div class="table-column col-4 bold">Color</div>
+              </div>
+              <div class="col-fixed" style="width: 100px">
+                <div class="table-column bold">Action</div>
+              </div>
+            </div>
+          </div>
+          <div class="table-content">
+            <div class="table-content-row custom-grid" *ngFor="let category of categories$">
+              <div class="col custom-grid">
+                <div class="table-column col-4">{{ category.name }}</div>
+                <div class="table-column col-4">
+                  <i
+                    class="pi"
+                    [ngClass]="'pi-' + category.icon"
+                    style="font-size: 15px"
+                    [ngStyle]="{ color: category.color }"
+                  ></i>
+                </div>
+                <div class="table-column col-4">
+                  <span
+                    class="category-color-box"
+                    [ngStyle]="{ background: category.color }"
+                  ></span>
+                </div>
+              </div>
+              <div class="col-fixed" style="width: 100px; height: auto; padding: 0; margin: 0">
+                <div class="table-column col-3 table-action-column">
+                  <p-button
+                    (onClick)="deleteCategory(category.id)"
+                    styleClass="p-button-error mr-2"
+                    icon="pi pi-trash"
+                  ></p-button>
+                  <p-button
+                    (onClick)="navigateToEditPage(category.id)"
+                    styleClass="p-button-error"
+                    icon="pi pi-pencil"
+                  ></p-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </p-card>
+</div>
+
+<p-confirmDialog
+  [style]="{ width: '50vw', marginLeft: '17.5rem' }"
+  [baseZIndex]="10000"
+  rejectButtonStyleClass="p-button-text"
+></p-confirmDialog>

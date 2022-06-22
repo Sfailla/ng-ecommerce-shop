@@ -48,7 +48,8 @@ const routes: Route[] = [
       { path: 'categories/edit/:id', component: CategoryEditComponent },
       { path: 'products', component: ProductListComponent },
       { path: 'products/add', component: ProductAddComponent },
-      { path: 'products/edit/:id', component: ProductEditComponent }
+      { path: 'products/edit/:id', component: ProductEditComponent },
+      { path: 'users', component: UserComponent }
     ]
   }
 ]

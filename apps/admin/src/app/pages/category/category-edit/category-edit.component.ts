@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { HelperFns } from '@nera/core'
-import { Category, CategoryId, CategoryService } from '@nera/category'
+import { CategoryService } from '@nera/category'
+import { Category, CategoryId } from '@nera/types'
 
 @Component({
   selector: 'admin-category-edit',

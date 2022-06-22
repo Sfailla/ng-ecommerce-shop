@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { Category, CategoryService } from '@nera/category'
+import { CategoryService } from '@nera/category'
+import { Category } from '@nera/types'
 import { HelperFns } from '@nera/core'
 
 @Component({

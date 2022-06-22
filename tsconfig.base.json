@@ -20,6 +20,7 @@
     "paths": {
       "@nera/category": ["libs/category/src/index.ts"],
       "@nera/core": ["libs/core/src/index.ts"],
+      "@nera/types": ["libs/core/src/lib/types/index.ts"],
       "@nera/orders": ["libs/orders/src/index.ts"],
       "@nera/products": ["libs/products/src/index.ts"],
       "@nera/ui": ["libs/ui/src/index.ts"],
