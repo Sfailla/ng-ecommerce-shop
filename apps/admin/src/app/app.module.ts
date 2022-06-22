@@ -35,6 +35,7 @@ import { EditorModule } from 'primeng/editor'
 import { FileUploadModule } from 'primeng/fileupload'
 import { RatingModule } from 'primeng/rating'
 import { PaginatorModule } from 'primeng/paginator'
+import { UserComponent } from './pages/user/user.component'
 
 const routes: Route[] = [
   {
@@ -83,7 +84,8 @@ const UxModules = [
     BackButtonComponent,
     ProductListComponent,
     ProductAddComponent,
-    ProductEditComponent
+    ProductEditComponent,
+    UserComponent
   ],
   imports: [
     ...UxModules,
