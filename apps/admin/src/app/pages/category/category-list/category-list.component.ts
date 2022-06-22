@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
-import { Category, CategoryId, CategoryService } from '@nera/category'
+import { CategoryService } from '@nera/category'
 import { HelperFns } from '@nera/core'
+import { Category, CategoryId } from '@nera/types'
 import { ConfirmationDialogueService } from '@nera/ui'
 
 @Component({

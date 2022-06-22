@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { HelperFns } from '@nera/core'
-import { Product, ProductId, ProductService } from 'libs/product/src'
+import { ProductService } from '@nera/products'
 import { ConfirmationDialogueService } from '@nera/ui'
+import { Product, ProductId } from '@nera/types'
 
 @Component({
   selector: 'admin-product-list',
