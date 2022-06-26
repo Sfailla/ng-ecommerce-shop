@@ -19,6 +19,7 @@
             ]
           }
         ],
+        "no-empty-function": "off",
         "@typescript-eslint/no-empty-function": ["warn"],
         "@angular-eslint/no-empty-lifecycle-method": ["warn"]
       }

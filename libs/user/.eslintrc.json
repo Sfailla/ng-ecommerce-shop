@@ -9,6 +9,8 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
+        "no-empty-function": "off",
+        "@typescript-eslint/no-empty-function": ["warn"],
         "@angular-eslint/directive-selector": [
           "error",
           {
