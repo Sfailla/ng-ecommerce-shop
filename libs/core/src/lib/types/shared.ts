@@ -1,27 +1,29 @@
 export enum Routes {
-  Categories = "categories",
-  Products = "products",
-  Orders = "orders",
-  Users = "users",
+  Categories = 'categories',
+  Products = 'products',
+  Orders = 'orders',
+  Users = 'users'
 }
 
 export interface ApiError extends Error {
-  code: string;
-  stack: string;
-  name: string;
-  status: string;
-  message: string;
+  code: string
+  stack: string
+  name: string
+  status: string
+  message: string
 }
 
 type Properties =
-  | "products"
-  | "product"
-  | "category"
-  | "categories"
-  | "order"
-  | "orders";
+  | 'products'
+  | 'product'
+  | 'category'
+  | 'categories'
+  | 'order'
+  | 'orders'
+  | 'user'
+  | 'users'
 
 export type ApiResponse<T> = { [prop in Properties]: T } & {
-  message?: string;
-  error: ApiError;
-};
+  message?: string
+  error: ApiError
+}
