@@ -1,10 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule, Route } from '@angular/router';
-
-export const usersRoutes: Route[] = [];
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
 
 @NgModule({
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule]
 })
 export class UsersModule {}

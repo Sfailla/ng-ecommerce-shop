@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { ApiResponse, User } from '@nera/types'
+import { ApiResponse, Routes, User } from '@nera/types'
 import { Observable } from 'rxjs'
 import { baseUrl } from '@nera/core'
 
@@ -11,6 +11,6 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<ApiResponse<User[]>> {
-    return this.http.get<ApiResponse<User[]>>(`${baseUrl}/users`)
+    return this.http.get<ApiResponse<User[]>>(`${baseUrl}/${Routes.Users}`)
   }
 }
