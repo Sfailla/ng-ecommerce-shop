@@ -8,9 +8,7 @@ import { baseUrl } from '@nera/core'
   providedIn: 'root'
 })
 export class ProductService {
-  constructor(private http: HttpClient) {
-    this.http = http
-  }
+  constructor(private http: HttpClient) {}
 
   getProducts(): Observable<ApiResponse<Product[]>> {
     return this.http.get<ApiResponse<Product[]>>(`${baseUrl}/${Routes.Products}`)
